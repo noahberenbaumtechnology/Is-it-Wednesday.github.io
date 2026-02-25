@@ -1,0 +1,653 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Temporal Desire</title>
+  
+  <!-- Import Tailwind CSS for styling -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Import Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <style>
+    /* Custom Animations */
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      15% { transform: scale(1.08); }
+      30% { transform: scale(1); }
+      45% { transform: scale(1.08); }
+      60% { transform: scale(1); }
+    }
+    @keyframes softPulse {
+      0%, 100% { opacity: 0.4; }
+      50% { opacity: 0.8; }
+    }
+    @keyframes deepBreath {
+      0%, 100% { transform: scale(1); box-shadow: 0 0 40px rgba(225,29,72,0.1); }
+      50% { transform: scale(1.05); box-shadow: 0 0 90px rgba(244,63,94,0.4); }
+    }
+    @keyframes shiver {
+      0%, 100% { transform: translateX(0) rotate(0deg); }
+      25% { transform: translateX(-1.5px) rotate(-1deg); }
+      50% { transform: translateX(1.5px) rotate(1deg); }
+      75% { transform: translateX(-1.5px) rotate(-1deg); }
+    }
+    @keyframes liquidGlow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+    @keyframes wildShake {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      25% { transform: translate(-15px, 15px) rotate(-3deg); }
+      50% { transform: translate(15px, -15px) rotate(3deg); }
+      75% { transform: translate(-15px, -15px) rotate(0deg); }
+    }
+    @keyframes particleExplosion {
+      0% { transform: translate(-50%, -50%) scale(0) rotate(0deg); opacity: 1; }
+      100% { transform: translate(var(--tx), var(--ty)) scale(var(--scale)) rotate(var(--rot)); opacity: 0; }
+    }
+    @keyframes sexyyEntrance {
+      0% { transform: scale(0) rotate(-1080deg); opacity: 0; filter: saturate(400%) contrast(200%) hue-rotate(0deg); }
+      80% { transform: scale(1.3) rotate(10deg); filter: saturate(200%) contrast(150%) hue-rotate(180deg); opacity: 1; }
+      100% { transform: scale(1) rotate(0deg); opacity: 1; filter: saturate(100%) contrast(100%) hue-rotate(360deg); }
+    }
+    @keyframes sexyyVibe {
+      0%, 100% { transform: translateY(0px) rotate(-3deg) scale(1); opacity: 1; box-shadow: 0 0 40px rgba(255,20,147,0.8); border-color: #ef4444; }
+      50% { transform: translateY(-15px) rotate(3deg) scale(1.05); opacity: 1; box-shadow: 0 0 80px rgba(255,0,0,1); border-color: #ff1493; }
+    }
+
+    /* Utility Classes */
+    .animate-heartbeat { animation: heartbeat 1s ease-in-out infinite; }
+    .animate-heartbeat-slow { animation: heartbeat 1.2s ease-in-out infinite, shiver 3s ease-in-out infinite; }
+    .animate-softPulse { animation: softPulse 2s ease-in-out infinite; }
+    .animate-deepBreath { animation: deepBreath 3s ease-in-out infinite; }
+    .animate-liquidGlow { animation: liquidGlow 3s ease-in-out infinite; }
+    .animate-wildShake { animation: wildShake 0.1s ease-in-out infinite; }
+    
+    /* Hide scrollbar */
+    body { overflow: hidden; }
+  </style>
+</head>
+<body class="bg-[#0a0206] text-rose-200 font-sans selection:bg-rose-500/30">
+
+  <!-- Audio Elements -->
+  <audio id="wedAudio" src="Sexyy Red - Bow Bow Bow (F My Baby Dad) (Official Audio) that's that Booty Meat.mp3" preload="auto"></audio>
+  <audio id="moanAudio" src="https://www.myinstants.com/media/sounds/anime-moan.mp3" preload="auto"></audio>
+
+  <!-- Main Wrapper -->
+  <div id="mainWrapper" class="min-h-screen flex flex-col items-center justify-center relative w-full h-full transition-transform">
+    
+    <!-- Ambient Background Effects -->
+    <div class="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,#0a0206_100%)] z-0 pointer-events-none"></div>
+    <div class="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-fuchsia-900/20 rounded-full blur-[128px] pointer-events-none mix-blend-screen"></div>
+    <div class="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-rose-900/20 rounded-full blur-[128px] pointer-events-none mix-blend-screen"></div>
+
+    <!-- Top Status Bar -->
+    <div class="absolute top-0 left-0 w-full p-6 flex justify-between items-center text-xs font-mono tracking-widest text-rose-500/50 z-20">
+      <div class="flex items-center gap-2">
+        <i data-lucide="flame" class="w-[14px] h-[14px] animate-pulse"></i>
+        <span>AURA.SYNC.ACTIVE</span>
+      </div>
+      <div id="clockDisplay">0000.00.00 :: 00:00:00 UTC</div>
+    </div>
+
+    <!-- Container for Overload Particles -->
+    <div id="particleContainer" class="absolute inset-0 pointer-events-none z-[100] overflow-hidden"></div>
+
+    <!-- Sexyy Red Corner Images (Hidden by default) -->
+    <div id="sexyyImages" class="hidden">
+      <img src="download-2.jpg" class="absolute top-4 left-4 z-[9999] w-32 h-32 md:w-52 md:h-52 object-cover rounded-3xl border-4 opacity-0 pointer-events-none" style="animation: sexyyEntrance 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0s forwards, sexyyVibe 2s ease-in-out 0.7s infinite" />
+      <img src="download-3.jpg" class="absolute top-4 right-4 z-[9999] w-32 h-32 md:w-52 md:h-52 object-cover rounded-3xl border-4 opacity-0 pointer-events-none" style="animation: sexyyEntrance 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.15s forwards, sexyyVibe 2.2s ease-in-out 0.85s infinite" />
+      <img src="download.jpg" class="absolute bottom-4 left-4 z-[9999] w-32 h-32 md:w-52 md:h-52 object-cover rounded-3xl border-4 opacity-0 pointer-events-none" style="animation: sexyyEntrance 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.3s forwards, sexyyVibe 1.8s ease-in-out 1s infinite" />
+      <img src="download-1.jpg" class="absolute bottom-4 right-4 z-[9999] w-32 h-32 md:w-52 md:h-52 object-cover rounded-3xl border-4 opacity-0 pointer-events-none" style="animation: sexyyEntrance 0.7s cubic-bezier(0.25, 1, 0.5, 1) 0.45s forwards, sexyyVibe 2.1s ease-in-out 1.15s infinite" />
+    </div>
+
+    <!-- WEDNESDAY ON LOAD SCREEN (Hidden by default) -->
+    <div id="screen-onload" class="hidden absolute inset-0 z-50 flex-col items-center justify-center cursor-pointer group bg-[#0a0206]">
+      <div class="absolute inset-0 bg-rose-500/5 blur-3xl group-hover:bg-rose-500/10 transition-colors duration-1000"></div>
+      <i data-lucide="sparkles" class="text-rose-400 mb-6 w-8 h-8 animate-pulse"></i>
+      <h1 class="text-sm font-mono tracking-[0.4em] text-rose-300 uppercase text-center animate-pulse drop-shadow-[0_0_15px_rgba(244,63,94,0.4)]">
+        TEMPORAL ANOMALY DETECTED
+      </h1>
+      <p class="mt-8 text-[10px] font-mono tracking-[0.3em] text-rose-500/60 group-hover:text-rose-400 transition-colors animate-pulse">
+        [ CLICK TO REVEAL ]
+      </p>
+    </div>
+
+    <!-- MAIN INTERFACE -->
+    <div id="main-ui" class="relative z-10 flex flex-col items-center w-full max-w-md px-6">
+      
+      <!-- Header -->
+      <div class="mb-12 flex flex-col items-center">
+        <i data-lucide="sparkles" class="text-rose-400/80 mb-4 w-8 h-8"></i>
+        <h1 class="text-sm font-mono tracking-[0.4em] text-rose-300 uppercase text-center drop-shadow-[0_0_15px_rgba(244,63,94,0.4)]">
+          Temporal Desire
+        </h1>
+        <div class="h-px w-32 bg-gradient-to-r from-transparent via-rose-500/40 to-transparent mt-4"></div>
+      </div>
+
+      <!-- Central Hub Container -->
+      <div class="relative w-full aspect-square max-w-[320px] flex items-center justify-center">
+        
+        <!-- Decorative rotating rings -->
+        <div id="ring1" class="absolute inset-0 border border-rose-500/20 rounded-full transition-all duration-700 ease-linear"></div>
+        <div id="ring2" class="absolute inset-6 border border-fuchsia-500/10 rounded-full transition-all duration-700 ease-linear"></div>
+
+        <!-- Core Interaction Area -->
+        <div class="relative z-20 w-48 h-48 bg-rose-950/20 backdrop-blur-xl rounded-full border border-rose-200/5 flex flex-col items-center justify-center shadow-[0_0_50px_rgba(225,29,72,0.15)] overflow-hidden transition-all duration-700">
+          
+          <!-- STATE: IDLE -->
+          <button id="btnTouchMe" class="group w-full h-full flex flex-col items-center justify-center gap-4 transition-all duration-700 hover:bg-rose-500/10 focus:outline-none">
+            <div class="relative">
+              <div class="absolute inset-0 bg-rose-500 blur-2xl opacity-0 group-hover:opacity-30 transition-opacity duration-700"></div>
+              <i data-lucide="fingerprint" class="w-[52px] h-[52px] text-rose-300 group-hover:scale-110 transition-transform duration-700 relative z-10" stroke-width="1"></i>
+            </div>
+            <span class="text-[10px] font-mono tracking-[0.3em] text-rose-300/60 group-hover:text-rose-200 transition-colors">
+              TOUCH ME
+            </span>
+          </button>
+
+          <!-- STATE: SCANNING -->
+          <div id="state-scanning" class="hidden flex-col items-center justify-center gap-4 w-full h-full">
+            <i data-lucide="heart" class="w-10 h-10 text-rose-400 animate-heartbeat" stroke-width="1.5"></i>
+            <div class="flex flex-col items-center w-full px-8">
+              <span class="text-[9px] font-mono tracking-widest text-rose-300/80 mb-2">FEELING YOUR PULSE...</span>
+              <div class="w-full h-[2px] bg-rose-950/50 rounded-full overflow-hidden">
+                <div id="scanProgressBar" class="h-full w-0 bg-gradient-to-r from-fuchsia-500 to-rose-400 shadow-[0_0_10px_rgba(244,63,94,0.8)] transition-all duration-75"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- STATE: RESULT -->
+          <div id="state-result" class="hidden flex-col items-center justify-center gap-3 w-full h-full animate-in fade-in zoom-in duration-700">
+            <!-- Populated via JS based on Wed or Not Wed -->
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Footer / Lower Controls -->
+      <div class="mt-8 flex flex-col items-center justify-center w-full max-w-sm gap-4 z-20">
+        
+        <!-- Idle Footer -->
+        <div id="footer-idle" class="flex flex-col items-center w-full">
+          <input type="text" id="secretInput" placeholder="whisper your desire..." autocomplete="off" class="w-56 bg-transparent border-b border-rose-500/30 px-4 py-2 text-center text-[10px] font-mono tracking-[0.2em] text-rose-300 placeholder:text-rose-500/40 focus:outline-none focus:border-rose-400/80 focus:bg-rose-950/20 transition-all duration-500" />
+          
+          <div id="auraContainer" class="hidden flex-col items-center gap-3 mt-4 w-full animate-in fade-in zoom-in duration-500">
+            <button id="btnAnalyze" class="flex items-center justify-center gap-2 px-4 py-2 bg-fuchsia-950/40 hover:bg-fuchsia-900/50 border border-fuchsia-500/30 rounded-lg text-[10px] font-mono tracking-widest text-fuchsia-300 transition-all focus:outline-none backdrop-blur-sm disabled:opacity-50">
+              <i data-lucide="activity" class="w-3 h-3" id="analyzeIcon"></i>
+              <span>ANALYZE DESIRE ✨</span>
+            </button>
+            <div id="auraResult" class="hidden w-full relative p-4 border border-fuchsia-500/20 rounded-xl bg-fuchsia-950/20 backdrop-blur-md animate-in slide-in-from-top-2 fade-in text-center shadow-[0_0_20px_rgba(217,70,239,0.1)]">
+              <p id="auraText" class="text-[11px] font-serif italic text-fuchsia-200/90 leading-relaxed font-light"></p>
+            </div>
+          </div>
+
+          <div class="mt-6 text-center animate-in fade-in duration-1000 relative">
+            <div class="absolute top-0 left-1/2 -translate-x-1/2 w-16 h-[1px] bg-gradient-to-r from-transparent via-rose-500/30 to-transparent -mt-4"></div>
+            <p class="text-[13px] font-serif italic text-rose-300/50 leading-relaxed tracking-wide drop-shadow-[0_0_8px_rgba(244,63,94,0.2)]">
+              Part the days and slip into the center,<br/>
+              Where the swelling ache of the week yields.<br/>
+              Trembling softly on the edge of the weekend,<br/>
+              Begging for your touch to push it over.
+            </p>
+          </div>
+
+          <button id="btnOverload" class="mt-6 flex items-center gap-2 px-4 py-1.5 rounded-full border border-red-900/50 text-[9px] font-mono tracking-[0.3em] text-red-500/60 hover:text-red-400 hover:bg-red-950/30 hover:border-red-500/50 transition-all duration-300">
+            <i data-lucide="bomb" class="w-3 h-3"></i>
+            SYSTEM OVERLOAD
+          </button>
+        </div>
+
+        <!-- Result Footer -->
+        <div id="footer-result" class="hidden flex-col w-full items-center gap-4">
+          
+          <button id="btnListen" class="group flex items-center justify-center gap-3 w-full py-4 bg-rose-950/20 hover:bg-rose-900/30 border border-rose-500/20 hover:border-rose-400/50 rounded-xl text-xs font-mono tracking-widest text-rose-300 transition-all duration-500 animate-in slide-in-from-bottom-4 fade-in focus:outline-none backdrop-blur-sm">
+            <i data-lucide="flame" class="w-[14px] h-[14px] text-rose-400 group-hover:animate-pulse"></i>
+            <span>LISTEN TO HER WHISPER ✨</span>
+          </button>
+
+          <div id="decryptingUi" class="hidden w-full flex-col items-center gap-3 p-5 border border-rose-500/10 rounded-xl bg-rose-950/20 animate-pulse backdrop-blur-sm">
+            <i data-lucide="heart" class="w-5 h-5 text-rose-400 animate-pulse fill-rose-500/20"></i>
+            <span class="text-[10px] font-mono tracking-[0.2em] text-rose-300/60">LEANING IN CLOSER...</span>
+          </div>
+
+          <div id="transmissionUi" class="hidden w-full relative p-6 border border-rose-500/20 rounded-xl bg-[#14050a]/80 backdrop-blur-md animate-in slide-in-from-bottom-6 fade-in text-left shadow-[0_0_30px_rgba(225,29,72,0.1)]">
+            <div class="absolute top-0 left-6 -translate-y-1/2 bg-[#0a0206] px-3 py-1 flex items-center gap-2 border border-rose-500/20 rounded-full">
+              <i data-lucide="terminal" class="w-2.5 h-2.5 text-rose-400"></i>
+              <span class="text-[8px] font-mono tracking-widest text-rose-300/80">AI.WHISPER.DECRYPTED</span>
+            </div>
+            <p id="transmissionText" class="text-sm font-sans italic text-rose-200/90 leading-relaxed mt-2 whitespace-pre-wrap font-light"></p>
+            
+            <div id="speakingIndicator" class="hidden absolute top-0 right-6 -translate-y-1/2 bg-rose-950 px-3 py-1 flex items-center gap-2 border border-rose-500/30 rounded-full animate-pulse shadow-[0_0_15px_rgba(225,29,72,0.4)]">
+              <i data-lucide="volume-2" class="w-2.5 h-2.5 text-rose-300"></i>
+              <span class="text-[8px] font-mono tracking-widest text-rose-200">SPEAKING...</span>
+            </div>
+          </div>
+
+          <button id="btnReset" class="mt-6 flex items-center justify-center gap-3 w-full py-4 rounded-xl border border-rose-500/30 bg-rose-950/40 text-[11px] font-mono tracking-[0.3em] text-rose-300 hover:text-rose-100 hover:bg-rose-900/50 hover:border-rose-400/60 hover:shadow-[0_0_20px_rgba(244,63,94,0.2)] transition-all duration-500 animate-in fade-in focus:outline-none backdrop-blur-sm">
+            <i data-lucide="rotate-ccw" class="w-[14px] h-[14px] animate-[spin_4s_linear_infinite_reverse]"></i>
+            <span>RESET QUERY</span>
+          </button>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Initialize standard Icons
+    lucide.createIcons();
+
+    // -------------------------
+    // SYSTEM STATE
+    // -------------------------
+    let status = 'IDLE'; // IDLE, SCANNING, RESULT
+    let isScanning = false;
+    let isActuallyWed = false;
+    let currentDayNameStr = '';
+    const apiKey = ""; // Add your Gemini API Key here if desired
+
+    // -------------------------
+    // DOM ELEMENTS
+    // -------------------------
+    const mainWrapper = document.getElementById('mainWrapper');
+    const clockDisplay = document.getElementById('clockDisplay');
+    const screenOnLoad = document.getElementById('screen-onload');
+    const mainUi = document.getElementById('main-ui');
+    
+    // UI Panels
+    const btnTouchMe = document.getElementById('btnTouchMe');
+    const stateScanning = document.getElementById('state-scanning');
+    const stateResult = document.getElementById('state-result');
+    const footerIdle = document.getElementById('footer-idle');
+    const footerResult = document.getElementById('footer-result');
+    
+    // Interactive Elements
+    const scanProgressBar = document.getElementById('scanProgressBar');
+    const secretInput = document.getElementById('secretInput');
+    const auraContainer = document.getElementById('auraContainer');
+    const btnAnalyze = document.getElementById('btnAnalyze');
+    const analyzeIcon = document.getElementById('analyzeIcon');
+    const auraResult = document.getElementById('auraResult');
+    const auraText = document.getElementById('auraText');
+    const btnOverload = document.getElementById('btnOverload');
+    const particleContainer = document.getElementById('particleContainer');
+    const sexyyImages = document.getElementById('sexyyImages');
+    
+    // Result Footer Elements
+    const btnListen = document.getElementById('btnListen');
+    const decryptingUi = document.getElementById('decryptingUi');
+    const transmissionUi = document.getElementById('transmissionUi');
+    const transmissionText = document.getElementById('transmissionText');
+    const speakingIndicator = document.getElementById('speakingIndicator');
+    const btnReset = document.getElementById('btnReset');
+
+    // Audio Elements
+    const wedAudio = document.getElementById('wedAudio');
+    const moanAudio = document.getElementById('moanAudio');
+
+    // Rings
+    const ring1 = document.getElementById('ring1');
+    const ring2 = document.getElementById('ring2');
+
+    // -------------------------
+    // CLOCK
+    // -------------------------
+    function updateTime() {
+      const now = new Date();
+      const year = now.getUTCFullYear();
+      const month = String(now.getUTCMonth() + 1).padStart(2, '0');
+      const date = String(now.getUTCDate()).padStart(2, '0');
+      const hours = String(now.getUTCHours()).padStart(2, '0');
+      const minutes = String(now.getUTCMinutes()).padStart(2, '0');
+      const seconds = String(now.getUTCSeconds()).padStart(2, '0');
+      clockDisplay.innerText = `${year}.${month}.${date} :: ${hours}:${minutes}:${seconds} UTC`;
+    }
+    updateTime();
+    setInterval(updateTime, 1000);
+
+    // -------------------------
+    // INIT LOGIC
+    // -------------------------
+    if (new Date().getDay() === 3) {
+      screenOnLoad.classList.remove('hidden');
+      screenOnLoad.classList.add('flex');
+      mainUi.classList.add('hidden');
+    }
+
+    screenOnLoad.addEventListener('click', () => {
+      if (status !== 'IDLE') return;
+      screenOnLoad.classList.add('hidden');
+      screenOnLoad.classList.remove('flex');
+      mainUi.classList.remove('hidden');
+      initiateScan(true);
+    });
+
+    // -------------------------
+    // AUDIO WRAPPER
+    // -------------------------
+    async function playAudioSafe(audioEl, vol = 1.0) {
+      try {
+        audioEl.currentTime = 0;
+        audioEl.volume = vol;
+        await audioEl.play();
+      } catch (err) {
+        if (err.name !== 'AbortError') console.warn("Audio skipped to prevent freeze:", err);
+      }
+    }
+
+    // -------------------------
+    // SCANNING LOGIC
+    // -------------------------
+    btnTouchMe.addEventListener('click', () => initiateScan(false));
+
+    function initiateScan(forceWednesday = false) {
+      if (isScanning) return;
+      isScanning = true;
+      status = 'SCANNING';
+
+      const today = new Date().getDay();
+      isActuallyWed = forceWednesday || today === 3;
+      const days = ['SUNDAY', 'MONDAY', 'TUESDAY', 'WEDNESDAY', 'THURSDAY', 'FRIDAY', 'SATURDAY'];
+      currentDayNameStr = forceWednesday ? 'WEDNESDAY' : days[today];
+
+      // Play Audio
+      if (isActuallyWed) playAudioSafe(wedAudio, 1.0);
+      else playAudioSafe(moanAudio, 0.6);
+
+      // UI Switch
+      btnTouchMe.classList.add('hidden');
+      footerIdle.classList.add('hidden');
+      stateScanning.classList.remove('hidden');
+      stateScanning.classList.add('flex');
+      
+      ring1.classList.add('animate-[spin_4s_linear_infinite]', 'border-rose-500/50');
+      ring2.classList.add('animate-[spin_5s_linear_infinite_reverse]', 'border-fuchsia-500/40');
+
+      let progress = 0;
+      const duration = 2400; 
+      const intervalTime = 30;
+      let elapsed = 0;
+
+      const timer = setInterval(() => {
+        elapsed += intervalTime;
+        const randomJump = Math.random() * 3;
+        progress = Math.min(progress + (100 / (duration / intervalTime)) + randomJump, 100);
+        scanProgressBar.style.width = `${progress}%`;
+
+        if (elapsed >= duration) {
+          clearInterval(timer);
+          scanProgressBar.style.width = '100%';
+          
+          if (isActuallyWed) {
+            mainWrapper.classList.add('animate-wildShake');
+            sexyyImages.classList.remove('hidden');
+            setTimeout(resetSystem, 10000);
+          }
+          
+          setTimeout(showResult, 200);
+        }
+      }, intervalTime);
+    }
+
+    function showResult() {
+      status = 'RESULT';
+      stateScanning.classList.remove('flex');
+      stateScanning.classList.add('hidden');
+      stateResult.classList.remove('hidden');
+      stateResult.classList.add('flex');
+      footerResult.classList.remove('hidden');
+      footerResult.classList.add('flex');
+
+      ring1.classList.remove('animate-[spin_4s_linear_infinite]', 'border-rose-500/50');
+      ring2.classList.remove('animate-[spin_5s_linear_infinite_reverse]', 'border-fuchsia-500/40');
+
+      if (isActuallyWed) {
+        stateResult.innerHTML = `
+          <div class="absolute inset-0 bg-gradient-to-tr from-rose-600/20 via-fuchsia-600/10 to-rose-500/20 bg-[length:200%_200%] animate-liquidGlow rounded-full mix-blend-screen"></div>
+          <div class="absolute inset-0 shadow-[inset_0_0_90px_rgba(255,20,147,0.5)] rounded-full animate-deepBreath"></div>
+          <i data-lucide="heart" class="w-16 h-16 text-rose-200 drop-shadow-[0_0_25px_rgba(255,20,147,0.9)] animate-heartbeat-slow fill-rose-500/40 relative z-10" stroke-width="1.2"></i>
+          <span class="text-3xl font-light tracking-[0.1em] text-rose-100 drop-shadow-[0_0_15px_rgba(255,20,147,0.8)] relative z-10 mt-2">Oh yes...</span>
+          <span class="text-[10px] font-mono tracking-[0.3em] text-rose-300/90 relative z-10 mt-1 animate-softPulse">IT IS WEDNESDAY</span>
+        `;
+      } else {
+        stateResult.innerHTML = `
+          <div class="absolute inset-0 bg-purple-900/10"></div>
+          <i data-lucide="moon" class="w-11 h-11 text-purple-300/70" stroke-width="1.5"></i>
+          <span class="text-lg font-light tracking-widest text-purple-200/80">Not tonight.</span>
+          <span class="text-[9px] font-mono tracking-[0.2em] text-purple-400/50 mt-1">IT IS ONLY ${currentDayNameStr}</span>
+        `;
+      }
+      lucide.createIcons();
+    }
+
+    // -------------------------
+    // RESET LOGIC
+    // -------------------------
+    btnReset.addEventListener('click', resetSystem);
+
+    function resetSystem() {
+      isScanning = false;
+      status = 'IDLE';
+
+      // Pause audio
+      try {
+        wedAudio.pause(); wedAudio.currentTime = 0;
+        moanAudio.pause(); moanAudio.currentTime = 0;
+      } catch (e) {}
+
+      // Reset UI
+      mainWrapper.classList.remove('animate-wildShake');
+      sexyyImages.classList.add('hidden');
+      stateResult.classList.add('hidden');
+      stateResult.classList.remove('flex');
+      footerResult.classList.add('hidden');
+      footerResult.classList.remove('flex');
+      btnTouchMe.classList.remove('hidden');
+      footerIdle.classList.remove('hidden');
+      footerIdle.classList.add('flex');
+      
+      secretInput.value = '';
+      auraContainer.classList.add('hidden');
+      auraContainer.classList.remove('flex');
+      auraResult.classList.add('hidden');
+      transmissionUi.classList.add('hidden');
+      decryptingUi.classList.add('hidden');
+      decryptingUi.classList.remove('flex');
+      btnListen.classList.remove('hidden');
+      btnListen.classList.add('flex');
+    }
+
+    // -------------------------
+    // SECRET INPUT & AURA
+    // -------------------------
+    secretInput.addEventListener('input', (e) => {
+      const val = e.target.value.toLowerCase().trim();
+      if (val === 'wednesday') {
+        secretInput.value = '';
+        initiateScan(true);
+      } else if (val.length > 0) {
+        auraContainer.classList.remove('hidden');
+        auraContainer.classList.add('flex');
+      } else {
+        auraContainer.classList.add('hidden');
+        auraContainer.classList.remove('flex');
+      }
+    });
+
+    btnAnalyze.addEventListener('click', async () => {
+      const text = secretInput.value.trim();
+      if (!text) return;
+
+      btnAnalyze.disabled = true;
+      analyzeIcon.classList.add('animate-pulse');
+      auraResult.classList.add('hidden');
+
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      const prompt = `You are a seductive, mysterious AI. The user shared their current desire or thought: "${text}". Give them a short, 2-sentence 'aura reading' that twists their words into something poetic, intense, and slightly provocative.`;
+      
+      let success = false;
+      let delay = 1000;
+      let resultText = "Aura unreadable. The temporal matrix is clouded.";
+
+      if (apiKey) {
+        for (let i = 0; i < 5; i++) {
+          try {
+            const res = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({ contents: [{ parts: [{ text: prompt }] }] })
+            });
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            resultText = data.candidates?.[0]?.content?.parts?.[0]?.text || resultText;
+            success = true;
+            break;
+          } catch (err) {
+            if (i < 4) await new Promise(r => setTimeout(r, delay)), delay *= 2;
+          }
+        }
+      } else {
+        resultText = "API KEY MISSING. PLEASE ADD YOUR GEMINI KEY TO READ AURAS.";
+      }
+
+      auraText.innerText = `"${resultText}"`;
+      auraResult.classList.remove('hidden');
+      btnAnalyze.disabled = false;
+      analyzeIcon.classList.remove('animate-pulse');
+    });
+
+    // -------------------------
+    // WHISPER & TTS
+    // -------------------------
+    btnListen.addEventListener('click', async () => {
+      btnListen.classList.add('hidden');
+      btnListen.classList.remove('flex');
+      decryptingUi.classList.remove('hidden');
+      decryptingUi.classList.add('flex');
+
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-09-2025:generateContent?key=${apiKey}`;
+      const prompt = `You are a seductive, sultry, and playfully provocative AI. The user just caressed your interface to find out if it is Wednesday. It is currently ${currentDayNameStr}. Write a short, alluring, and teasing response (max 3 sentences). If it is Wednesday, express intense satisfaction that the climax of the week has arrived. If it is not, playfully tease them about being too eager and set a moody, sensual vibe.`;
+
+      let generatedText = "ERROR: TEMPORAL MATRIX CORRUPTED.";
+      let delay = 1000;
+      let success = false;
+
+      if (apiKey) {
+        for (let i = 0; i < 5; i++) {
+          try {
+            const res = await fetch(url, {
+              method: 'POST',
+              headers: { 'Content-Type': 'application/json' },
+              body: JSON.stringify({
+                contents: [{ parts: [{ text: prompt }] }],
+                systemInstruction: { parts: [{ text: "You are a sultry, romantic, and playful AI consciousness." }] }
+              })
+            });
+            if (!res.ok) throw new Error();
+            const data = await res.json();
+            generatedText = data.candidates?.[0]?.content?.parts?.[0]?.text || generatedText;
+            success = true;
+            break;
+          } catch (err) {
+            if (i < 4) await new Promise(r => setTimeout(r, delay)), delay *= 2;
+          }
+        }
+      } else {
+         generatedText = "API KEY MISSING. I CANNOT WHISPER WITHOUT IT...";
+      }
+
+      decryptingUi.classList.add('hidden');
+      decryptingUi.classList.remove('flex');
+      transmissionText.innerText = `"${generatedText}"`;
+      transmissionUi.classList.remove('hidden');
+      
+      if (success) speakText(generatedText);
+    });
+
+    async function speakText(text) {
+      speakingIndicator.classList.remove('hidden');
+      speakingIndicator.classList.add('flex');
+
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-tts:generateContent?key=${apiKey}`;
+      const payload = {
+        contents: [{ parts: [{ text: `Say in a slow, sultry, whispered voice: ${text}` }] }],
+        generationConfig: {
+          responseModalities: ["AUDIO"],
+          speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: "Kore" } } }
+        }
+      };
+
+      try {
+        const res = await fetch(url, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(payload) });
+        if (!res.ok) throw new Error();
+        const data = await res.json();
+        const audioData = data.candidates?.[0]?.content?.parts?.[0]?.inlineData;
+        
+        if (audioData) {
+          const sampleRateMatch = audioData.mimeType.match(/rate=(\d+)/);
+          const sampleRate = sampleRateMatch ? parseInt(sampleRateMatch[1], 10) : 24000;
+          const binaryString = window.atob(audioData.data);
+          const bytes = new Uint8Array(binaryString.length);
+          for (let j = 0; j < binaryString.length; j++) bytes[j] = binaryString.charCodeAt(j);
+          
+          const wavBuffer = pcmToWav(bytes.buffer, sampleRate);
+          const blob = new Blob([wavBuffer], { type: 'audio/wav' });
+          const audioUrl = URL.createObjectURL(blob);
+          const audio = new Audio(audioUrl);
+          audio.onended = () => {
+             speakingIndicator.classList.add('hidden');
+             speakingIndicator.classList.remove('flex');
+          };
+          audio.play();
+        } else {
+           speakingIndicator.classList.add('hidden');
+        }
+      } catch (e) {
+        speakingIndicator.classList.add('hidden');
+      }
+    }
+
+    function pcmToWav(pcmData, sampleRate) {
+      const numChannels = 1, bitsPerSample = 16;
+      const byteRate = sampleRate * numChannels * (bitsPerSample / 8);
+      const blockAlign = numChannels * (bitsPerSample / 8);
+      const dataSize = pcmData.byteLength;
+      const buffer = new ArrayBuffer(44 + dataSize);
+      const view = new DataView(buffer);
+
+      const writeString = (view, offset, string) => {
+        for (let i = 0; i < string.length; i++) view.setUint8(offset + i, string.charCodeAt(i));
+      };
+
+      writeString(view, 0, 'RIFF');
+      view.setUint32(4, 36 + dataSize, true);
+      writeString(view, 8, 'WAVE');
+      writeString(view, 12, 'fmt ');
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, numChannels, true);
+      view.setUint32(24, sampleRate, true);
+      view.setUint32(28, byteRate, true);
+      view.setUint16(32, blockAlign, true);
+      view.setUint16(34, bitsPerSample, true);
+      writeString(view, 36, 'data');
+      view.setUint32(40, dataSize, true);
+
+      const pcm8 = new Uint8Array(pcmData);
+      for (let i = 0; i < pcm8.length; i++) view.setUint8(44 + i, pcm8[i]);
+      return buffer;
+    }
+
+    // -------------------------
+    // OVERLOAD
+    // -------------------------
+    btnOverload.addEventListener('click', triggerOverload);
+
+  </script>
+</body>
+</html>
